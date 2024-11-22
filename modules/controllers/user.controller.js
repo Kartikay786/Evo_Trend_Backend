@@ -55,7 +55,7 @@ const cLogin = async (req,res)=>{
 
 }
 
-
+// admin register
 const adminRegister = async (req,res)=>{
     const {name,email,password} = req.body;
     const admin = true;
@@ -81,7 +81,7 @@ const adminRegister = async (req,res)=>{
     }
 }
 
-// customer Login
+// admin Login
 const adminLogin = async (req,res)=>{
     const {email,password} = req.body;
 
