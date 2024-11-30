@@ -104,4 +104,19 @@ const adminLogin = async (req,res)=>{
     }
 
 }
-export {cRegister,cLogin,adminRegister,adminLogin}
+
+//get allcustomer
+const allcustomer = async (req,res)=>{
+    
+    try{
+        const user = await User.find();
+        if(!user) return res.status(400).json({message:'No user find'});
+
+        return res.status(200).json({message:'All user find',user});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({message:'server Error'});
+    }
+}
+export {cRegister,cLogin,adminRegister,adminLogin,allcustomer}

@@ -5,8 +5,9 @@ import fs from 'fs'
 // create product by admin
 
 const createProduct = async (req, res) => {
-    const { productName, category,brand, description, price, stock } = req.body;
+    const { productName,brand, description, price, stock } = req.body;
     let imageUrl = null;
+    const categoryid = req.params.categoryid;
 
 
     try {
@@ -26,7 +27,7 @@ const createProduct = async (req, res) => {
         const product = await Product.findOne({ productName });
         if (product) return res.status(400).json({ message: 'This product already added ' });
 
-        const newProduct = new Product({ productName, description,brand, price, stock, image:imageUrl, category });
+        const newProduct = new Product({ productName, description,brand, price, stock, image:imageUrl, category:categoryid });
 
         await newProduct.save();
         return res.status(200).json({ message: 'Product added Successfuly', newProduct })
@@ -112,4 +113,20 @@ const updateProduct = async (req, res) => {
     }
 }
 
-export { createProduct, deleteProduct,getProduct,getProductById,updateProduct }
+// get product by category id
+const getBycategoryId = async (req,res) => {
+    const id = req.params.id ;
+
+    try{
+        const product = await Product.find({category:id});
+        if(!product) return res.status(400).json({message:'Product not found'});
+        
+        return res.status(200).json({message:'Product fetched Successfully',product});
+    }
+    catch(err){
+        console.log('Error :', err);
+        return res.status(500).json({ message: 'server Error' });
+    }
+}
+
+export { createProduct, deleteProduct,getProduct,getProductById,updateProduct,getBycategoryId }

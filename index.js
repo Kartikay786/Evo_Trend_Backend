@@ -5,6 +5,7 @@ import dbConnection from './modules/utils/db.js';
 import userRouter from './modules/routes/user.route.js'
 import productRouter from './modules/routes/product.route.js'
 import cartRoute from './modules/routes/cart.routes.js'
+import orderRoute from './modules/routes/order.routes.js'
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/api/user',userRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart',cartRoute);
+app.use('/api/order',orderRoute);
 
 
 // dbconnection
